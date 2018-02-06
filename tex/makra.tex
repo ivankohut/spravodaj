@@ -1,0 +1,172 @@
+\shyph % use csplain
+\input opmac
+%\input lmfonts
+%\input cs-pagella
+\margins/1 a5 (1.2, 1.2, 1.2, 1.7)cm
+\parindent 1em % odstavcova zarazka
+\emergencystretch=2em % roztiahnutie medzislovnych medzier v riadku
+
+\hyperlinks{\Blue}{\Blue} % vnitřní odkazy modré, URL zelené
+% vseobecne fonty
+%\font\tenrm="Lucida Sans Unicode:mapping=tex-text"
+%\font\tenit="Lucida Sans Unicode:mapping=tex-text,slant=0.2"
+%\font\tenbf="Lucida Sans Unicode:mapping=tex-text,embolden=1.5"
+%\font\tenbi="Lucida Sans Unicode:mapping=tex-text,slant=0.2,embolden=1.5"
+%\font\tenrm="Linux Libertine O:mapping=tex-text"
+%\font\tenit="Linux Libertine O/I:mapping=tex-text"
+%\font\tenbf="Linux Libertine O/B:mapping=tex-text"
+%\font\tenbi="Linux Libertine O/BI:mapping=tex-text"
+% Poznamka k "Butler" fontom: Fonty stiahnute z webstranky tvorcu nie su priamo pouzitelne, je potrebne ich otvorit v programe FontForge a vyexportovat (File/Generate Fonts...).
+% Dovod: niektore pismena s diakritikou nie su vo fonte ulozene korektne (neviem co to presne znamena) a XeTeX ich nevie pouzit, FontForge zobrazuje pre nich nejaky warning.
+% Reexport fontu odstranuje problem (nevie preco), warning zmizne a XeTeX je tiez spokojny. Tento postup som nasiel na internete (v suvislosti s inym fontom).
+\font\tenrm="[Butler_Regular-reexported]:mapping=tex-text"
+\font\tenit="[Butler_Regular-reexported]:mapping=tex-text,slant=0.2"
+\font\tenbf="[Butler_Bold-reexported]:mapping=tex-text"
+\font\tenbi="[Butler_Bold-reexported]:mapping=tex-text,slant=0.2"
+%\typosize[10/13] - standard
+\typosize[10/12.5]% zvacsuje pismo, pretoze to inak vychadza na 5 stran
+
+% fonty pre specificke pouzitie
+\font\ftitle="[Butler_Bold-reexported]" at42pt
+\font\ffootertitle="[Butler_Regular-reexported]" at9.5pt
+\def\fissuemonth{\ftitle}
+\font\fissueyear="[Butler_Bold-reexported]" at20pt
+
+\def\monthname#1{%
+\ifcase#1
+\or január% 1
+\or február% 2
+\or marec% 3
+\or apríl% 4
+\or máj% 5
+\or jún% 6
+\or júl% 7
+\or august% 8
+\or september% 9
+\or október% 10
+\or november% 11
+\or december% 12
+\fi}
+\def\nazovmesiaca{\monthname\cislomesiaca}
+
+% Titulka
+\newcount\issueyear
+\def\rom#1{\uppercase\expandafter{\romannumeral#1}}
+\def\spravodaj#1#2{\gdef\cislomesiaca{#1}\gdef\rokvydania{#2}
+%v oboch nasledujucich riadkoch musi byt ciselny rozmer rovnaky ale s opacnym znamienkom (napr. 4cm a -4cm)
+\picheight=4cm\hfill\inspic kostol.png
+\vskip-4cm
+{\noindent\ftitle Spravodaj\hfill#1{\fissueyear\ #2}}\par
+\issueyear = #2
+\advance \issueyear by -1997
+\vskip-0.3cm
+\noindent\hfill ročník \rom{\the\issueyear}\par
+\noindent {\typosize[11/15]\bf cirkevného zboru BJB Palisády}\par
+\noindent{\typosize[9/12]\ulink[https://www.bjbpalisady.sk/spravodaj]{www.bjbpalisady.sk/spravodaj}}\par
+\vskip 1.6cm
+\noindent{\it ...hovorím vám, že aj ten, kto verí vo mňa, bude konať skutky, aké ja konám, ba bude konať ešte väčšie... \hfill Ján 14, 12}%
+\footline={\ifnum\pageno=1 \hfil \else \ifodd\pageno {\ffootertitle spravodaj}\kern0.8em #1/#2\hfil \the\pageno \else \the\pageno \hfil {\ffootertitle spravodaj}\kern0.8em #1/#2\fi\fi}%
+}
+
+% Tiraz
+\long\def\tiraz{
+\footline={\hfil} % na poslednej strane nechceme paticku
+\vfill % spolu s \vfil\break na konci makra to sposobi umiestnenie textu na koniec stranky
+\centerline{\typoscale[900/]\table{|c|}{\crl
+e-mail: \email{zbor@bjbpalisady.sk} webstránka: \ulink[http://www.bjbpalisady.sk/]{www.bjbpalisady.sk} telefón: 207 00 307 \cr
+vydal Cirkevný zbor Bratskej jednoty baptistov Bratislava I Palisády (Zrínskeho 2, 81103)\cr
+bankové spojenie (IBAN): SK36 0900 0000 0000 1147 1836\cr
+redakcia: D. Uhrin, M. Kešjarová, grafická úprava: M. Kohút, I. Kohút\crl
+}}
+\vfil\break
+}
+
+\def\clanok#1{\nonum\secc{#1}}
+\def\autor#1{{\hfill\tenit #1}\par}
+
+% Narodeniny
+
+\newcount\pocetoslavencov \pocetoslavencov=0
+\def\oslavenciden[#1]{\csname oslavenciden:#1\endcsname}
+\def\oslavencimesiac[#1]{\csname oslavencimesiac:#1\endcsname}
+\def\oslavencimeno[#1]{\csname oslavencimeno:#1\endcsname}
+\def\pridajoslavenca#1#2#3{\advance\pocetoslavencov by 1
+\expandafter\def\csname oslavenciden:\the\pocetoslavencov\endcsname{#1}
+\expandafter\def\csname oslavencimesiac:\the\pocetoslavencov\endcsname{#2}
+\expandafter\def\csname oslavencimeno:\the\pocetoslavencov\endcsname{#3}
+}
+\def\n #1.#2.#3;{\pridajoslavenca{#1}{#2}{#3}}
+
+\newdimen\halfhsize
+\halfhsize=\hsize
+\divide\halfhsize by 2
+
+\def\printnarodeniny#1#2#3{\hbox to0.5cm{\hfil #1}\hbox to0.5cm{#2\hfil}\vrule\hskip0.5em #3\hfil\vrule}
+\def\printoslavenec#1{\printnarodeniny{\oslavenciden[#1].}{\oslavencimesiac[#1].}{\oslavencimeno[#1]}}
+\def\printprazdnyoslavenec{\printnarodeniny{}{}{}}
+\def\printriadoknarodenin#1#2{\hbox to\hsize{\hbox to\halfhsize{\vrule height2.5ex depth1ex #1}#2}\par\hrule}
+
+\newcount\oslavenciindex \oslavenciindex=0
+\newcount\oslavenciindexleft
+\newcount\oslavenciindexright
+\newcount\polovicapoctuoslavencov
+
+\def\narodeniny{
+% hlavicka
+\vfill
+\vbox{
+\centerline{\bf Výročie príchodu na tento svet oslavujú}\nobreak
+\frame{\vbox{
+\hrule\nobreak
+% oslavenci
+\polovicapoctuoslavencov=\pocetoslavencov
+\divide\polovicapoctuoslavencov by 2
+\ifodd \pocetoslavencov \advance\polovicapoctuoslavencov by 1 \fi
+\loop\ifnum \polovicapoctuoslavencov>\oslavenciindex{
+  \oslavenciindexleft=\oslavenciindex
+  \advance\oslavenciindexleft by 1
+  \oslavenciindexright=\oslavenciindexleft
+  \advance\oslavenciindexright by \polovicapoctuoslavencov
+  \parindent=0pt
+  \printriadoknarodenin{\printoslavenec{\the\oslavenciindexleft}}{\ifnum\oslavenciindexright>\pocetoslavencov\printprazdnyoslavenec\else\printoslavenec{\the\oslavenciindexright}\fi}
+}
+\advance\oslavenciindex by 1
+\repeat
+}}}
+\vfil\break
+}
+
+% Program
+
+\newcount\hasmultieventrowtoday % 0 - default, netlacime zvislu ciaru za prvym eventom v danom riadku, 1 - tlacime medzeru, lebo v dany den uz boli dva eventy v jednom riadku
+\hasmultieventrowtoday=0
+\newcount\issunday
+\def\textcell#1#2{\hskip2pt\vtop{\noindent\hsize#2cm\baselineskip=1pt#1{\emergencystretch=2em\par}\vskip1pt}\hskip2pt}
+\def\programevent#1#2#3#4{\vrule\hbox to.4cm{\hfil #1}%
+\hbox to.4cm{\kern.5pt\lower.21ex\hbox{$^{#2}$}\hfil}%
+\textcell{#3}{#4}%
+}
+\def\p#1;#2;#3.#4;#5;#6.#7;#8;{{\typoscale[950/]\if^#1^\hrule height0pt\else\hrule\global\hasmultieventrowtoday=0\gdef\dayofweek{#2}\fi\hbox to\hsize{%
+\ifnum\strcmp{ ne }{\dayofweek}=0\issunday=1\else\issunday=0\fi%
+\vrule height2.5ex% depth1ex%
+{%
+%ciselny rozmer width a kern musi byt rovnaky, ale s opacnym znamienkom (napr. 1.5cm a -1.5cm)
+\ifnum 1=\issunday{\localcolor \LightGrey \vrule width1.52cm}\kern-1.52cm\bf\fi%
+\hbox to.4cm{\hfil #1\unskip}%
+\hbox to.5cm{\if^#1^\ \else .~\cislomesiaca .\fi\hfil}%
+\vrule\hbox to.6cm{#2\hfil}%
+}%
+\if^#6^\ifnum 0=\hasmultieventrowtoday\programevent{#3}{#4}{#5}{9.5}\else\programevent{#3}{#4}{#5}{4.45}\programevent{}{}{}{4.45}\fi\else%
+\programevent{#3}{#4}{#5}{4.45}%
+\programevent{#6}{#7}{#8}{4.45}%
+\global\hasmultieventrowtoday=1
+\fi%
+\hfil\vrule\par}}}
+\def\program#1{\centerline{\bf Program na \nazovmesiaca}\nobreak\frame{\vbox{#1\hrule}}
+\noindent\centerline{\it Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}
+}
+
+% Linky
+\def\email#1{\ulink[mailto:#1]{#1}}
+
+\rm
