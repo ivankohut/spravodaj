@@ -3,20 +3,36 @@
 import sys
 
 from classes import CachingIterable, InputPdfFile, BookletOrderedPages, SecondPageRightOfFirstMapping, OutputPdfFile, \
-    FileNameWithSuffix, Pages2in1, RemainingItems, ConcatenatedIterables
+    FileNameWithSuffix, Pages2in1, RemainingItems, ConcatenatedIterables, InputFileName
 
-inputFileName = sys.argv[1]
+inputFileName = InputFileName(sys.argv)
 pages = CachingIterable(InputPdfFile(inputFileName))
 bookletPages = BookletOrderedPages(pages)
 twoToOneMapping = SecondPageRightOfFirstMapping()
 
-OutputPdfFile(
-    Pages2in1(bookletPages, twoToOneMapping),
-    FileNameWithSuffix(inputFileName, "-booklet"),
-).write()
 
-remainingPages = CachingIterable(Pages2in1(RemainingItems(pages, bookletPages), twoToOneMapping))
-OutputPdfFile(
+def create_output_pdf_file(pages, suffix):
+    return OutputPdfFile(
+        pages,
+        FileNameWithSuffix(inputFileName, "-" + suffix)
+    )
+
+
+bookletFile = create_output_pdf_file(
+    Pages2in1(bookletPages, twoToOneMapping),
+    "booklet"
+)
+
+remainingPages = CachingIterable(
+    Pages2in1(
+        RemainingItems(pages, bookletPages),
+        twoToOneMapping
+    )
+)
+remainderFile = create_output_pdf_file(
     ConcatenatedIterables(remainingPages, remainingPages),
-    FileNameWithSuffix(inputFileName, "-remainder")
-).write()
+    "remainder"
+)
+
+bookletFile.write()
+remainderFile.write()

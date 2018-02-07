@@ -76,7 +76,7 @@ class InputPdfFile(Iterable):
         self.__filename = filename
 
     def __iter__(self):
-        reader = PdfFileReader(open(self.__filename, 'rb'))
+        reader = PdfFileReader(open(str(self.__filename), 'rb'))
         return [(reader.getPage(i)) for i in range(0, reader.getNumPages())].__iter__()
 
 
@@ -126,3 +126,11 @@ class ConcatenatedIterables(Iterable):
 
     def __iter__(self):
         return [item for items in [self.__iterable1, self.__iterable2] for item in items].__iter__()
+
+
+class InputFileName():
+    def __init__(self, arguments):
+        self.__arguments = arguments
+
+    def __str__(self):
+        return self.__arguments[1]
