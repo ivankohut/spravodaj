@@ -3,7 +3,7 @@
 import sys
 
 from classes import CachingIterable, InputPdfFile, BookletOrderedPages, SecondPageRightOfFirstMapping, OutputPdfFile, \
-    FileNameWithSuffix, Pages2in1, RemainingItems
+    FileNameWithSuffix, Pages2in1, RemainingItems, ConcatenatedIterables
 
 inputFileName = sys.argv[1]
 pages = CachingIterable(InputPdfFile(inputFileName))
@@ -15,7 +15,8 @@ OutputPdfFile(
     FileNameWithSuffix(inputFileName, "-booklet"),
 ).write()
 
+remainingPages = CachingIterable(Pages2in1(RemainingItems(pages, bookletPages), twoToOneMapping))
 OutputPdfFile(
-    Pages2in1(RemainingItems(pages, bookletPages), twoToOneMapping),
+    ConcatenatedIterables(remainingPages, remainingPages),
     FileNameWithSuffix(inputFileName, "-remainder")
 ).write()

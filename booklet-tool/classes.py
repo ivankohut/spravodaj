@@ -59,12 +59,15 @@ class Pages2in1(Iterable):
 class SecondPageRightOfFirstMapping:
 
     def map(self, page1, page2):
-        box = page1.mediaBox
-        original_width = box.getWidth()
-        original_height = box.getHeight()
-        page = PageObject.createBlankPage(None, original_width * 2, original_height)
+        box1 = page1.mediaBox
+        box2 = page2.mediaBox
+        page = PageObject.createBlankPage(
+            None,
+            box1.getWidth() + box2.getWidth(),
+            max(box1.getHeight(), box2.getHeight())
+        )
         page.mergePage(page1)
-        page.mergeTranslatedPage(page2, original_width, 0)
+        page.mergeTranslatedPage(page2, box1.getWidth(), 0)
         return page
 
 
@@ -114,3 +117,12 @@ class CachingIterable(Iterable):
 
     def __iter__(self):
         return self.__iterable.__iter__()
+
+
+class ConcatenatedIterables(Iterable):
+    def __init__(self, iterable1, iterable2):
+        self.__iterable1 = list(iterable1)
+        self.__iterable2 = list(iterable2)
+
+    def __iter__(self):
+        return [item for items in [self.__iterable1, self.__iterable2] for item in items].__iter__()

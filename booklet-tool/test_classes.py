@@ -1,6 +1,6 @@
 import unittest
 
-from classes import BookletOrderedPages, RemainingItems, FileNameWithSuffix
+from classes import BookletOrderedPages, RemainingItems, FileNameWithSuffix, ConcatenatedIterables
 
 
 class BookletOrderedPagesTest(unittest.TestCase):
@@ -26,6 +26,13 @@ class FileNameWithSuffixTest(unittest.TestCase):
     def test_suffixAppendedToFIleNameIfNoExtensionExists(self):
         sut = FileNameWithSuffix("filename", "-suffix")
         self.assertEqual("filename-suffix", str(sut))
+
+
+class ConcatenatedIterablesTest(unittest.TestCase):
+
+    def test_iterableOfItemsFromFirstIterableFollowedByItemsFromSecondIterable(self):
+        sut = ConcatenatedIterables([1, 2], [3, 4])
+        self.assertSequenceEqual([1, 2, 3, 4], list(sut))
 
 
 if __name__ == '__main__':
