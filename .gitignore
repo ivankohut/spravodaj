@@ -3,4 +3,7 @@
 *.otf
 *.fmt
 *.log
+*.ref
+*.tex.backup
 *_spravodaj_*.pdf
+*_vyrocne_spravy_*.pdf
