@@ -1,12 +1,12 @@
 \shyph % use csplain
 \input opmac
 %\input lmfonts
-%\input cs-pagella
+\input cs-pagella % font Palatino
 \margins/1 a5 (1.2, 1.2, 1.2, 1.7)cm
 \parindent 1em % odstavcova zarazka
 \emergencystretch=2em % roztiahnutie medzislovnych medzier v riadku
 
-\hyperlinks{\Blue}{\Blue} % vnitřní odkazy modré, URL zelené
+\hyperlinks{\Blue}{\Blue} % farba hyperlinkov - vnutorne aj URL modre
 % vseobecne fonty
 %\font\tenrm="Lucida Sans Unicode:mapping=tex-text"
 %\font\tenit="Lucida Sans Unicode:mapping=tex-text,slant=0.2"
@@ -19,18 +19,18 @@
 % Poznamka k "Butler" fontom: Fonty stiahnute z webstranky tvorcu nie su priamo pouzitelne, je potrebne ich otvorit v programe FontForge a vyexportovat (File/Generate Fonts...).
 % Dovod: niektore pismena s diakritikou nie su vo fonte ulozene korektne (neviem co to presne znamena) a XeTeX ich nevie pouzit, FontForge zobrazuje pre nich nejaky warning.
 % Reexport fontu odstranuje problem (nevie preco), warning zmizne a XeTeX je tiez spokojny. Tento postup som nasiel na internete (v suvislosti s inym fontom).
-\font\tenrm="[Butler_Regular-reexported]:mapping=tex-text"
-\font\tenit="[Butler_Regular-reexported]:mapping=tex-text,slant=0.2"
-\font\tenbf="[Butler_Bold-reexported]:mapping=tex-text"
-\font\tenbi="[Butler_Bold-reexported]:mapping=tex-text,slant=0.2"
-%\typosize[10/13] - standard
-\typosize[10/12.5]% zvacsuje pismo, pretoze to inak vychadza na 5 stran
+%\font\tenrm="[Butler_Regular-reexported]:mapping=tex-text"
+%\font\tenit="[Butler_Regular-reexported]:mapping=tex-text,slant=0.2"
+%\font\tenbf="[Butler_Bold-reexported]:mapping=tex-text"
+%\font\tenbi="[Butler_Bold-reexported]:mapping=tex-text,slant=0.2"
+\typosize[9/12]% - standard
+%\typosize[10/12.5]% - trochu vasie, vhodne ak napr. "standard" vychadza na neparny pocet stran
 
 % fonty pre specificke pouzitie
-\font\ftitle="[Butler_Bold-reexported]" at42pt
-\font\ffootertitle="[Butler_Regular-reexported]" at9.5pt
+\def\ftitle{\typosize[42/]\bf}
+\def\ffootertitle{\typosize[9.5/]}
+\def\fissueyear{\typosize[20/]\bf}
 \def\fissuemonth{\ftitle}
-\font\fissueyear="[Butler_Bold-reexported]" at20pt
 
 \def\monthname#1{%
 \ifcase#1
@@ -52,10 +52,13 @@
 % Titulka
 \newcount\issueyear
 \def\rom#1{\uppercase\expandafter{\romannumeral#1}}
-\def\spravodaj#1#2{\gdef\cislomesiaca{#1}\gdef\rokvydania{#2}
+
+% Titulka - spravodaj
+\def\spravodaj#1#2{\gdef\cislomesiaca{#1}\gdef\rokvydania{#2}%
+\def\footertext{{\ffootertitle spravodaj}\kern0.8em #1/#2}%
 %v oboch nasledujucich riadkoch musi byt ciselny rozmer rovnaky ale s opacnym znamienkom (napr. 4cm a -4cm)
-\picheight=4cm\hfill\inspic kostol.png
-\vskip-4cm
+\picheight=5.7cm\hfill\inspic kostol.pdf
+\vskip-5.7cm\vskip0.2cm
 {\noindent\ftitle Spravodaj\hfill#1{\fissueyear\ #2}}\par
 \issueyear = #2
 \advance \issueyear by -1997
@@ -63,17 +66,35 @@
 \noindent\hfill ročník \rom{\the\issueyear}\par
 \noindent {\typosize[11/15]\bf cirkevného zboru BJB Palisády}\par
 \noindent{\typosize[9/12]\ulink[https://www.bjbpalisady.sk/spravodaj]{www.bjbpalisady.sk/spravodaj}}\par
-\vskip 1.6cm
+\vskip 1.7cm
 \noindent{\it ...hovorím vám, že aj ten, kto verí vo mňa, bude konať skutky, aké ja konám, ba bude konať ešte väčšie... \hfill Ján 14, 12}%
-\footline={\ifnum\pageno=1 \hfil \else \ifodd\pageno {\ffootertitle spravodaj}\kern0.8em #1/#2\hfil \the\pageno \else \the\pageno \hfil {\ffootertitle spravodaj}\kern0.8em #1/#2\fi\fi}%
 }
+
+% Titulka - vyrocne spravy
+\def\vyrocnespravy#1{\gdef\rokvydania{#1}%
+\def\footertext{{\ffootertitle \bf výročné správy za rok #1}}%
+%v oboch nasledujucich riadkoch musi byt ciselny rozmer rovnaky ale s opacnym znamienkom (napr. 4cm a -4cm)
+\null
+\vskip1.5cm
+\picheight=4cm\inspic kostol.pdf
+\vskip-4cm
+\vskip-1.5cm
+{\noindent\ftitle Výročné správy\par}
+{\noindent\ftitle\hfill za rok #1\par}
+\vskip0.6cm
+\noindent {\hfill\typosize[11/15]\bf cirkevný zbor BJB Palisády}\par
+\noindent{\hfill\typosize[9/12]\ulink[https://www.bjbpalisady.sk/spravodaj]{www.bjbpalisady.sk/spravodaj}}\par
+%\vskip 0.1cm
+\null}
+
+\footline={\ifnum\pageno=1 \hfil \else \ifodd\pageno \footertext\hfil\the\pageno \else \the\pageno\hfil\footertext\fi\fi}%
 
 % Tiraz
 \long\def\tiraz{
 \footline={\hfil} % na poslednej strane nechceme paticku
 \vfill % spolu s \vfil\break na konci makra to sposobi umiestnenie textu na koniec stranky
 \centerline{\typoscale[900/]\table{|c|}{\crl
-e-mail: \email{zbor@bjbpalisady.sk} webstránka: \ulink[http://www.bjbpalisady.sk/]{www.bjbpalisady.sk} telefón: 207 00 307 \cr
+e-mail: \email{zbor@bjbpalisady.sk} webstránka: \ulink[http://www.bjbpalisady.sk/]{www.bjbpalisady.sk} telefón: 02/207 00 307 \cr
 vydal Cirkevný zbor Bratskej jednoty baptistov Bratislava I Palisády (Zrínskeho 2, 81103)\cr
 bankové spojenie (IBAN): SK36 0900 0000 0000 1147 1836\cr
 redakcia: D. Uhrin, M. Kešjarová, grafická úprava: M. Kohút, I. Kohút\crl
@@ -82,7 +103,8 @@ redakcia: D. Uhrin, M. Kešjarová, grafická úprava: M. Kohút, I. Kohút\crl
 }
 
 \def\clanok#1{\nonum\secc{#1}}
-\def\autor#1{{\hfill\tenit #1}\par}
+\def\cast#1{\vskip1ex\noindent{\bf #1}\nobreak\firstnoindent}
+\def\autor#1{\nobreak{\hfill\tenit #1}\par}
 
 % Narodeniny
 
