@@ -2,7 +2,7 @@
 
 This repos contains
 
-1. TeX sources of newsletter and macros special used (`makra.tex`)
+1. TeX sources of newsletter and macros used (`makra.tex`)
 2. *bookleet-tool* (Python3) script used to generate booklet pages for printing
 
 
@@ -14,12 +14,10 @@ This repos contains
     `xetex -jobname pdfcsplain -ini -etex csplain.ini`
 
     and this command to generate PDF from tex file (`2018_02_spravodaj_februar.tex` in this case)
-     using format generated with previous command
+    using format generated with previous command
 
     `xetex -fmt pdfcsplain.fmt 2018_02_spravodaj_februar.tex`
 
-- uses Butler font (http://fabiandesmet.com/portfolio/butler-font/), must be reexported using FontForge
-(just open the font file and then generate OTF file) in order to be usable by `xetex`
 - developed using TeX Live 2017
 
 
