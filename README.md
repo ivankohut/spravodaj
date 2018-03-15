@@ -3,7 +3,7 @@
 This repos contains
 
 1. TeX sources of newsletter and macros used (`makra.tex`)
-2. *bookleet-tool* (Python3) script used to generate booklet pages for printing
+2. *booklet-tool* (Python3) script used to generate booklet pages for printing
 
 
 ## TeX sources
