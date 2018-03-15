@@ -1,6 +1,6 @@
 import unittest
 
-from classes import BookletOrderedPages, RemainingItems, FileNameWithSuffix, ConcatenatedIterables
+from classes import BookletOrderedPages, RemainingItems, FileNameWithSuffix, ConcatenatedIterables, DoubledIterable
 
 
 class BookletOrderedPagesTest(unittest.TestCase):
@@ -33,6 +33,13 @@ class ConcatenatedIterablesTest(unittest.TestCase):
     def test_iterableOfItemsFromFirstIterableFollowedByItemsFromSecondIterable(self):
         sut = ConcatenatedIterables([1, 2], [3, 4])
         self.assertSequenceEqual([1, 2, 3, 4], list(sut))
+
+
+class DoubledIterableTest(unittest.TestCase):
+
+    def test_iterableOfItemsFromIterableFollowedByItemsFromTheSameIterable(self):
+        sut = DoubledIterable([1, 2])
+        self.assertSequenceEqual([1, 2, 1, 2], list(sut))
 
 
 if __name__ == '__main__':

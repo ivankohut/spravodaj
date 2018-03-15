@@ -3,6 +3,26 @@ from PyPDF2.pdf import PageObject
 from collections import Iterable
 
 
+class OutputFiles:
+    def __init__(self, *files):
+        self.__files = files
+
+    def write(self):
+        for file in self.__files:
+            file.write()
+
+
+class OutputPdfFileWithSuffix:
+    def __init__(self, pages, input_file_name, suffix):
+        self.output_pdf_file = OutputPdfFile(
+            pages,
+            FileNameWithSuffix(input_file_name, "-" + suffix)
+        )
+
+    def write(self):
+        self.output_pdf_file.write()
+
+
 class OutputPdfFile:
 
     def __init__(self, pages, filename):
@@ -121,11 +141,19 @@ class CachingIterable(Iterable):
 
 class ConcatenatedIterables(Iterable):
     def __init__(self, iterable1, iterable2):
-        self.__iterable1 = list(iterable1)
-        self.__iterable2 = list(iterable2)
+        self.__iterable1 = iterable1
+        self.__iterable2 = iterable2
 
     def __iter__(self):
         return [item for items in [self.__iterable1, self.__iterable2] for item in items].__iter__()
+
+
+class DoubledIterable(Iterable):
+    def __init__(self, iterable):
+        self.__iterable = ConcatenatedIterables(iterable, iterable)
+
+    def __iter__(self):
+        return self.__iterable.__iter__()
 
 
 class InputFileName():
