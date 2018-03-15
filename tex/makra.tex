@@ -164,8 +164,14 @@ redakcia: D. Uhrin, M. Kešjarová, grafická úprava: M. Kohút, I. Kohút\crl
 \hasmultieventrowtoday=0
 \newcount\issunday
 \def\textcell#1#2{\hskip2pt\vtop{\noindent\hsize#2cm\baselineskip=1pt#1{\emergencystretch=2em\par}\vskip1pt}\hskip2pt}
-\def\programevent#1#2#3#4{\vrule\hbox to.4cm{\hfil #1}%
-\hbox to.4cm{\kern.5pt\lower.21ex\hbox{$^{#2}$}\hfil}%
+\def\programevent#1#2#3#4{\vrule\vbox{
+  \hbox{%
+    \vtop{\vbox to0pt{}\hrule height0pt\hbox to.4cm{\hfil #1}}%
+    \vtop{\vbox to0pt{}\hrule height0pt\hbox to.4cm{\hskip0.5pt\typoscale[700/]#2\hfil}}%
+  }
+  \hrule height0pt
+  \vbox to0pt{}
+}%
 \textcell{#3}{#4}%
 }
 \def\p#1;#2;#3.#4;#5;#6.#7;#8;{{\typoscale[950/]\if^#1^\hrule height0pt\else\hrule\global\hasmultieventrowtoday=0\gdef\dayofweek{#2}\fi\hbox to\hsize{%
