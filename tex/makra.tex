@@ -98,7 +98,7 @@
 \long\def\tiraz{
 \footline={\hfil} % na poslednej strane nechceme paticku
 \vfill % spolu s \vfil\break na konci makra to sposobi umiestnenie textu na koniec stranky
-\centerline{\typoscale[900/]\table{|c|}{\crl
+\centerline{\typosize[8.1/11.5]\table{|c|}{\crl
 e-mail: \email{zbor@bjbpalisady.sk} webstránka: \ulink[http://www.bjbpalisady.sk/]{www.bjbpalisady.sk} telefón: 02/207 00 307 \cr
 vydal Cirkevný zbor Bratskej jednoty baptistov Bratislava I Palisády (Zrínskeho 2, 81103)\cr
 bankové spojenie (IBAN): SK36 0900 0000 0000 1147 1836\cr
@@ -179,25 +179,26 @@ redakcia: P. Pribula, M. Kešjarová, obálka: M. Kohút, sadzba: I. Kohút\crl
 }%
 \textcell{#3}{#4}%
 }
-\def\p#1;#2;#3.#4;#5;#6.#7;#8;{{\typoscale[950/]\if^#1^\hrule height0pt\else\hrule\global\hasmultieventrowtoday=0\gdef\dayofweek{#2}\fi\hbox to\hsize{%
+\def\pp#1.#2;#3;#4.#5;#6;#7.#8;#9;{{\typosize[8.1/12]\if^#1^\hrule height0pt\else\hrule\global\hasmultieventrowtoday=0\gdef\dayofweek{#3}\fi\hbox to\hsize{%
 \ifnum\strcmp{ ne }{\dayofweek}=0\issunday=1\else\issunday=0\fi%
-\vrule height2.5ex% depth1ex%
+\vrule height2.4ex%
 {%
 %ciselny rozmer width a kern musi byt rovnaky, ale s opacnym znamienkom (napr. 1.5cm a -1.5cm)
 \ifnum 1=\issunday{\localcolor \LightGrey \vrule width1.52cm}\kern-1.52cm\bf\fi%
-\hbox to.4cm{\hfil #1\unskip}%
-\hbox to.5cm{\if^#1^\ \else .~\cislomesiaca .\fi\hfil}%
-\vrule\hbox to.6cm{#2\hfil}%
+\hbox to.4cm{\vrule width0pt depth0.9ex  \hfil #1\unskip}%
+\hbox to.5cm{\if^#1^\ \else .~#2.\fi\hfil}%
+\vrule\hbox to.6cm{#3\hfil}%
 }%
-\if^#6^\ifnum 0=\hasmultieventrowtoday\programevent{#3}{#4}{#5}{9.5}\else\programevent{#3}{#4}{#5}{4.45}\programevent{}{}{}{4.45}\fi\else%
-\programevent{#3}{#4}{#5}{4.45}%
-\programevent{#6}{#7}{#8}{4.45}%
+\if^#7^\ifnum 0=\hasmultieventrowtoday\programevent{#4}{#5}{#6}{9.5}\else\programevent{#4}{#5}{#6}{4.45}\programevent{}{}{}{4.45}\fi\else%
+\programevent{#4}{#5}{#6}{4.45}%
+\programevent{#7}{#8}{#9}{4.45}%
 \global\hasmultieventrowtoday=1
 \fi%
 \hfil\vrule\par}}}
-\def\program#1{\centerline{\bf Program na \nazovmesiaca}\nobreak\frame{\vbox{#1\hrule}}
-\noindent\centerline{\it Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}
-}
+\def\p#1;#2;#3.#4;#5;#6.#7;#8;{\pp#1.\cislomesiaca;#2;#3.#4;#5;#6.#7;#8;}
+\def\programna#1#2{\def\cislomesiaca{#1}\centerline{\typosize[9/12]\bf Program na \monthname{#1}}\nobreak\frame{\vbox{#2\hrule}}}
+\def\koniecprogramu{\noindent\centerline{\typosize[9/12]\it Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}}
+\def\program#1{\expandafter\programna\cislomesiaca{#1}\koniecprogramu}
 
 % Linky
 \def\email#1{\ulink[mailto:#1]{#1}}
