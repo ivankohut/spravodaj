@@ -59,7 +59,7 @@
 \def\rom#1{\uppercase\expandafter{\romannumeral#1}}
 
 % Titulka - spravodaj
-\def\spravodaj#1#2{\gdef\cislomesiaca{#1}\gdef\rokvydania{#2}%
+\def\spravodaj#1#2{\gdef\cislomesiaca{{#1}}\gdef\rokvydania{{#2}}%
 \def\footertext{{\ffootertitle spravodaj}\kern0.8em #1/#2}%
 %v oboch nasledujucich riadkoch musi byt ciselny rozmer rovnaky ale s opacnym znamienkom (napr. 4cm a -4cm)
 \picheight=5.7cm\hfill\inspic kostol.pdf
@@ -131,7 +131,7 @@ redakcia: P. Pribula, M. Kešjarová, obálka: M. Kohút, sadzba: I. Kohút\crl
 \halfhsize=\hsize
 \divide\halfhsize by 2
 
-\def\printnarodeniny#1#2#3{\hbox to0.5cm{\hfil #1}\hbox to0.5cm{#2\hfil}\vrule\hskip0.5em #3\hfil\vrule}
+\def\printnarodeniny#1#2#3{\hbox to0.48cm{\hfil #1}\hbox to0.52cm{#2\hfil}\vrule\hskip0.5em #3\hfil\vrule}
 \def\printoslavenec#1{\printnarodeniny{\oslavenciden[#1].}{\oslavencimesiac[#1].}{\oslavencimeno[#1]}}
 \def\printprazdnyoslavenec{\printnarodeniny{}{}{}}
 \def\printriadoknarodenin#1#2{\hbox to\hsize{\hbox to\halfhsize{\vrule height2.5ex depth1ex #1}#2}\par\hrule}
@@ -188,8 +188,8 @@ redakcia: P. Pribula, M. Kešjarová, obálka: M. Kohút, sadzba: I. Kohút\crl
 {%
 %ciselny rozmer width a kern musi byt rovnaky, ale s opacnym znamienkom (napr. 1.5cm a -1.5cm)
 \ifnum 1=\issunday{\localcolor \LightGrey \vrule width1.52cm}\kern-1.52cm\bf\fi%
-\hbox to.4cm{\vrule width0pt depth0.9ex  \hfil #1\unskip}%
-\hbox to.5cm{\if^#1^\ \else .~#2.\fi\hfil}%
+\hbox to.35cm{\vrule width0pt depth0.9ex  \hfil #1\unskip}%
+\hbox to.55cm{\if^#1^\ \else .~#2.\fi\hfil}%
 \vrule\hbox to.6cm{#3\hfil}%
 }%
 \if^#7^\ifnum 0=\hasmultieventrowtoday\programevent{#4}{#5}{#6}{9.5}\else\programevent{#4}{#5}{#6}{4.45}\programevent{}{}{}{4.45}\fi\else%
