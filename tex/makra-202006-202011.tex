@@ -200,11 +200,7 @@ redakcia: D. Jones, P. Kolárovský, obálka: M. Kohút, sadzba: I. Kohút\crl
 \hfil\vrule\par}}}
 \def\p#1;#2;#3.#4;#5;#6.#7;#8;{\pp#1.\cislomesiaca;#2;#3.#4;#5;#6.#7;#8;}
 \def\programna#1#2{\def\cislomesiaca{#1}\centerline{\typosize[9/12]\bf Program na \monthname{#1}}\nobreak\frame{\vbox{#2\hrule}}}
-\def\riadokkoncaprogramu#1{\noindent\centerline{\typosize[9/12]\it#1}\par}
-\def\koniecprogramu{%
-\riadokkoncaprogramu{Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}%
-\riadokkoncaprogramu{V nedeľu je online prenos zabezpečený z bohoslužieb o 10.30 hod.}%
-}%
+\def\koniecprogramu{\noindent\centerline{\typosize[9/12]\it Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}}
 \def\program#1{\expandafter\programna\cislomesiaca{#1}\koniecprogramu}
 
 % Linky
