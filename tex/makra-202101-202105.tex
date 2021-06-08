@@ -116,18 +116,22 @@ redakcia: D. Jones, P. Kolárovský, obálka: M. Kohút, sadzba: I. Kohút\crl
 % Narodeniny
 
 \newcount\pocetoslavencov \pocetoslavencov=0
+\def\oslavenciden[#1]{\csname oslavenciden:#1\endcsname}
+\def\oslavencimesiac[#1]{\csname oslavencimesiac:#1\endcsname}
 \def\oslavencimeno[#1]{\csname oslavencimeno:#1\endcsname}
-\def\pridajoslavenca#1{\advance\pocetoslavencov by 1
-\expandafter\def\csname oslavencimeno:\the\pocetoslavencov\endcsname{#1}
+\def\pridajoslavenca#1#2#3{\advance\pocetoslavencov by 1
+\expandafter\def\csname oslavenciden:\the\pocetoslavencov\endcsname{#1}
+\expandafter\def\csname oslavencimesiac:\the\pocetoslavencov\endcsname{#2}
+\expandafter\def\csname oslavencimeno:\the\pocetoslavencov\endcsname{#3}
 }
-\def\n #1;{\pridajoslavenca{#1}}
+\def\n #1.#2.#3;{\pridajoslavenca{#1}{#2}{#3}}
 
 \newdimen\halfhsize
 \halfhsize=\hsize
 \divide\halfhsize by 2
 
-\def\printnarodeniny#1{\hskip0.5em #1\hfil\vrule}
-\def\printoslavenec#1{\printnarodeniny{\oslavencimeno[#1]}}
+\def\printnarodeniny#1#2#3{\hbox to0.48cm{\hfil #1}\hbox to0.52cm{#2\hfil}\vrule\hskip0.5em #3\hfil\vrule}
+\def\printoslavenec#1{\printnarodeniny{\oslavenciden[#1].}{\oslavencimesiac[#1].}{\oslavencimeno[#1]}}
 \def\printprazdnyoslavenec{\printnarodeniny{}{}{}}
 \def\printriadoknarodenin#1#2{\hbox to\hsize{\hbox to\halfhsize{\vrule height2.5ex depth1ex #1}#2}\par\hrule}
 
@@ -198,7 +202,7 @@ redakcia: D. Jones, P. Kolárovský, obálka: M. Kohút, sadzba: I. Kohút\crl
 \def\riadokkoncaprogramu#1{\noindent\centerline{\typosize[9/12]\it#1}\par}
 \def\koniecprogramu{%
 \riadokkoncaprogramu{Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}%
-\riadokkoncaprogramu{V nedeľu je zabezpečený online prenos bohoslužieb.}%
+\riadokkoncaprogramu{V nedeľu je online prenos zabezpečený z bohoslužieb o 10.30 hod.}%
 }%
 \def\program#1{\expandafter\programna\cislomesiaca{#1}\koniecprogramu}
 
