@@ -27,10 +27,9 @@
 %\font\tenbf="[Butler_Bold-reexported]:mapping=tex-text"
 %\font\tenbi="[Butler_Bold-reexported]:mapping=tex-text,slant=0.2"
 
-% Zakladna velkost fontu - vyzaduje existenciu makier \velkostpisma a \velkostriadku
-% 9/12 - standard
-% 10/12.5 - trochu vacsie, vhodne ak napr. "standard" vychadza na neparny pocet stran
-\typosize[\velkostpisma/\velkostriadku]
+% Zakladna velkost fontu
+\typosize[9/12]% - standard
+%\typosize[10/12.5]% - trochu vacsie, vhodne ak napr. "standard" vychadza na neparny pocet stran
 
 % Fonty pre specificke pouzitie
 \def\ftitle{\typosize[42/]\bf}
@@ -199,7 +198,7 @@ redakcia: D. Jones, P. Kolárovský, obálka: M. Kohút, sadzba: I. Kohút\crl
 \def\riadokkoncaprogramu#1{\noindent\centerline{\typosize[9/12]\it#1}\par}
 \def\koniecprogramu{%
 \riadokkoncaprogramu{Ak nie je uvedené inak, zhromaždenia a bohoslužby sa konajú v modlitebni na Palisádach.}%
-\riadokkoncaprogramu{V nedeľu je zabezpečený online prenos z bohoslužieb o 9.00 hod.}%
+\riadokkoncaprogramu{V nedeľu je zabezpečený online prenos bohoslužieb.}%
 }%
 \def\program#1{\expandafter\programna\cislomesiaca{#1}\koniecprogramu}
 
