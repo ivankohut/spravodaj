@@ -1,6 +1,6 @@
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from PyPDF2.pdf import PageObject
-from collections import Iterable
+from collections.abc import Iterable
 
 
 class OutputFiles:
