@@ -1,5 +1,4 @@
-from PyPDF2 import PdfFileReader, PdfFileWriter
-from PyPDF2.pdf import PageObject
+from PyPDF2 import PdfReader, PdfWriter, PageObject
 from collections.abc import Iterable
 
 
@@ -30,7 +29,7 @@ class OutputPdfFile:
         self.__filename = filename
 
     def write(self):
-        writer = PdfFileWriter()
+        writer = PdfWriter()
         for page in self.__pages:
             writer.addPage(page)
         if writer.getNumPages() > 0:
@@ -96,7 +95,7 @@ class InputPdfFile(Iterable):
         self.__filename = filename
 
     def __iter__(self):
-        reader = PdfFileReader(open(str(self.__filename), 'rb'))
+        reader = PdfReader(open(str(self.__filename), 'rb'))
         return [(reader.getPage(i)) for i in range(0, reader.getNumPages())].__iter__()
 
 
