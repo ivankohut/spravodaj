@@ -22,12 +22,12 @@ This repos contains
 
 
 ## Booklet tool
-Generates PDF file(s) (landscape A4 pages) used for printing the newsletter (portrait A5 pages).
-Generates one PDF file (for input pages count being multiple of 4) or two PDF files (for even pages count not being multiple of 4).
-Examples:
-  * four input A5 portrait pages => two A4 landscape pages (pages 4 and 1 on the first page, pages 2 and 3 on the second pages)
-  * six input A5 portrait pages => two documents (if you to print 100 copies then print 100 copies of the first document and 50 copies of the second document)
-    - first document = two A4 landscape pages (pages 6 and 1 on the first page, pages 2 and 5 on the second page)
-    - second document = with two A4 landscape pages (pages 3 and 4 on the first page, pages 3 and 4 on the second page)
+
+Generates PDF file(s) (landscape A4 pages) used for printing the newsletter (portrait A5 pages). Generates one PDF file (for input pages count being multiple of 4) or two PDF files (for even pages count not being multiple of 4). Examples:
+
+* four input A5 portrait pages => two A4 landscape pages (pages 4 and 1 on the first page, pages 2 and 3 on the second pages)
+* six input A5 portrait pages => two documents (if you plan to print 100 copies then print 100 copies of the first document and 50 copies of the second document)
+  * first document = two A4 landscape pages (pages 6 and 1 on the first page, pages 2 and 5 on the second page)
+  * second document = with two A4 landscape pages (pages 3 and 4 on the first page, pages 3 and 4 on the second page)
 
 Developed using Python 3.4
